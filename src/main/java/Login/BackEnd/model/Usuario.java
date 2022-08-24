@@ -1,19 +1,9 @@
 package Login.BackEnd.model;
 
 import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -31,7 +21,29 @@ public class Usuario {
 
 	private String email;
 	private String password;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "idPersona")
+	private List<Body> bodyList;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "idPersona")
+	private List<Educacion> educacionsList;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "idPersona")
+	private List<Experiencia> experienciasList;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "idPersona")
+	private List<Footer> footerList;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "idPersona")
+	private List<Habilidades> habilidadesList;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "idPersona")
+	private List<Home> homesList;
+
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "idPersona")
+	private List<Proyectos> proyectosList;
+
+
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "usuarios_roles",

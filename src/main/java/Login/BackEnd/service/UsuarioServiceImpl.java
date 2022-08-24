@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import Login.BackEnd.model.Proyectos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,17 +28,35 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+	@Autowired
 	public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
 		super();
 		this.usuarioRepository = usuarioRepository;
 	}
 
+	public Usuario addUsuario(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
+	public List<Usuario> findUsuario(Long id){
+		return usuarioRepository.findAll();
+	}
+	public Usuario EditUsuario(Usuario usuario){
+		return usuarioRepository.save(usuario);
+	}
+	public void deleteUsuario(Long id){
+		usuarioRepository.deleteById(id);
+	}
+
+	public Usuario findUserById (Long id){
+		return usuarioRepository.findById(id).orElseThrow();
+	}
+
+
 	@Override
 	public Usuario guardar(UsuarioRegistroDTO registroDTO) {
 		Usuario usuario = new Usuario(registroDTO.getNombre(), 
 				registroDTO.getApellido(),registroDTO.getEmail(),
-				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
+				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol( "ROLE_USER")));
 		return usuarioRepository.save(usuario);
 	}
 

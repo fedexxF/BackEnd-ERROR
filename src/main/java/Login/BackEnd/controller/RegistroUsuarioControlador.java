@@ -13,7 +13,7 @@ import Login.BackEnd.service.UsuarioService;
 @RequestMapping("/registro")
 public class RegistroUsuarioControlador {
 
-	private UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
 
 	public RegistroUsuarioControlador(UsuarioService usuarioService) {
 		super();

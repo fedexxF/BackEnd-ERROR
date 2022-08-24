@@ -6,12 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import Login.BackEnd.service.UsuarioService;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 @Controller
 public class RegistroControlador {
 
 	@Autowired
-	private UsuarioService servicio;
+	private UsuarioService service;
 	
 	@GetMapping("/login")
 	public String iniciarSesion() {
@@ -20,7 +21,12 @@ public class RegistroControlador {
 	
 	@GetMapping("/")
 	public String verPaginaDeInicio(Model modelo) {
-		modelo.addAttribute("usuarios", servicio.listarUsuarios());
-		return "index";
+		modelo.addAttribute("usuarios", service.listarUsuarios());
+		return "usuario";
+	}
+	@GetMapping("/admin")
+	public String verPaginaAdmin(Model modelo) {
+		modelo.addAttribute("ADMIN", service.listarUsuarios());
+		return "admin";
 	}
 }
